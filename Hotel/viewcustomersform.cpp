@@ -1,11 +1,36 @@
 #include "viewcustomersform.h"
 #include "ui_viewcustomersform.h"
 #include "centerhelper.h"
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QHeaderView>
 
 ViewCustomersForm::ViewCustomersForm(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ViewCustomersForm) {
     ui->setupUi(this);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(25, 20, 25, 20);
+    mainLayout->setSpacing(15);
+
+    QLabel *titleLabel = new QLabel("Customers List", this);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    QFont f = titleLabel->font();
+    f.setPointSize(16);
+    f.setBold(true);
+    titleLabel->setFont(f);
+    mainLayout->addWidget(titleLabel);
+
+    ui->customersTableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->customersTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    mainLayout->addWidget(ui->customersTableWidget);
+
+    QPushButton *closeBtn = new QPushButton("Close", this);
+    closeBtn->setMinimumSize(120, 36);
+    connect(closeBtn, &QPushButton::clicked, this, &QDialog::accept);
+    mainLayout->addWidget(closeBtn, 0, Qt::AlignCenter);
 
     centerOnScreen(this);
     loadCustomers();

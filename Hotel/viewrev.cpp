@@ -1,12 +1,38 @@
 #include "viewrev.h"
 #include "ui_viewrev.h"
 #include "centerhelper.h"
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QHeaderView>
 
 viewrev::viewrev(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::viewrev)
 {
     ui->setupUi(this);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(25, 20, 25, 20);
+    mainLayout->setSpacing(15);
+
+    QLabel *titleLabel = new QLabel("Reservations List", this);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    QFont f = titleLabel->font();
+    f.setPointSize(16);
+    f.setBold(true);
+    titleLabel->setFont(f);
+    mainLayout->addWidget(titleLabel);
+
+    ui->reserve->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->reserve->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    mainLayout->addWidget(ui->reserve);
+
+    QPushButton *closeBtn = new QPushButton("Close", this);
+    closeBtn->setMinimumSize(120, 36);
+    connect(closeBtn, &QPushButton::clicked, this, &QDialog::accept);
+    mainLayout->addWidget(closeBtn, 0, Qt::AlignCenter);
+
     centerOnScreen(this);
     LoadRevs();
 }
