@@ -12,4 +12,7 @@ Makefile*
 build*/
 *.dSYM/
 *.app/
-.qm/
+# Presentation / Teaching Slides (Local only)
+*presentation*.html
+*slides*.md
+*slides*.html
