@@ -1,0 +1,15 @@
+# Qt Creator / Build
+.DS_Store
+*.pro.user*
+*.pro.user
+.qtcreator/
+*.o
+moc_*
+ui_*
+qrc_*
+Makefile*
+.qmake.stash
+build*/
+*.dSYM/
+*.app/
+.qm/
